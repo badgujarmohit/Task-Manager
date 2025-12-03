@@ -1,0 +1,208 @@
+:root {
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --bg-color: #f1f5f9;
+  --card-bg: #ffffff;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  
+  /* Status Colors */
+  --hard: #ef4444;    /* Red */
+  --medium: #f59e0b;  /* Orange */
+  --easy: #22c55e;    /* Green */
+  --cancelled: #fee2e2;
+  --cancelled-text: #991b1b;
+  --completed: #dcfce7;
+  --completed-text: #166534;
+  --forwarded: #e0f2fe;
+  --forwarded-text: #075985;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- Responsive Container --- */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px; /* Less padding on mobile */
+}
+
+@media (min-width: 768px) {
+  .container { padding: 30px; }
+}
+
+/* --- Header / Navigation --- */
+.app-header {
+  display: flex;
+  flex-direction: column; /* Stack by default on mobile */
+  gap: 15px;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  margin-bottom: 25px;
+}
+
+@media (min-width: 600px) {
+  .app-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+h1, h2, h3 { margin: 0; color: var(--text-main); }
+p { color: var(--text-muted); margin: 5px 0 0 0; }
+
+/* --- Dashboard Grid --- */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* 1 column on mobile */
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+@media (min-width: 900px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on desktop */
+  }
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+  padding: 20px;
+  border: 1px solid var(--border);
+}
+
+/* --- Forms --- */
+.form-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+@media (min-width: 600px) {
+  .form-row {
+    display: flex;
+    gap: 10px;
+  }
+  .form-row > * { flex: 1; }
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 16px; /* 16px prevents zoom on iOS */
+  background: #f8fafc;
+}
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--primary);
+  background: white;
+}
+
+/* --- Buttons --- */
+button {
+  cursor: pointer;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: opacity 0.2s;
+}
+button:active { transform: scale(0.98); }
+
+.btn-primary { background: var(--primary); color: white; width: 100%; }
+.btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-muted); }
+.btn-success { background: var(--easy); color: white; }
+.btn-danger { background: var(--hard); color: white; }
+
+/* Desktop: Allow buttons to be auto width */
+@media (min-width: 600px) {
+  .btn-primary { width: auto; }
+}
+
+/* --- RESPONSIVE TABLE WRAPPER --- */
+/* This is the magic part for mobile */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto; /* Allow horizontal scrolling */
+  -webkit-overflow-scrolling: touch; /* Smooth scroll on iOS */
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+  border: 1px solid var(--border);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px; /* Force table to be wide enough to look good */
+}
+
+th, td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  background-color: #f8fafc;
+  font-weight: 600;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* --- Badges --- */
+.badge {
+  padding: 4px 12px;
+  border-radius: 99px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+}
+.badge-Hard { background: #fee2e2; color: #dc2626; }
+.badge-Medium { background: #ffedd5; color: #ea580c; }
+.badge-Easy { background: #dcfce7; color: #16a34a; }
+
+.status-label { font-weight: 600; font-size: 0.9rem; text-transform: capitalize; }
+.status-active { color: var(--text-main); }
+.status-cancelled { color: var(--cancelled-text); }
+.status-completed { color: var(--completed-text); }
+.status-forwarded { color: var(--forwarded-text); }
+
+/* --- Modal --- */
+.modal-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(2px);
+  display: flex; justify-content: center; align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+.modal-content {
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+}
